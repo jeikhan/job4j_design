@@ -16,7 +16,7 @@ public class BackwardArrayIt implements Iterator<Integer> {
 
     public BackwardArrayIt(int[] data) {
         this.data = data;
-        point = data.length > 0 ? data.length - 1 : data.length;
+        point = data.length - 1;
     }
 
     /**
@@ -27,7 +27,7 @@ public class BackwardArrayIt implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        return point < data.length;
+        return point >= 0;
     }
 
     /**
