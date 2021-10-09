@@ -28,17 +28,11 @@ public class MatrixIt implements Iterator<Integer> {
      */
     @Override
     public boolean hasNext() {
-        var result = false;
-        for (int i = 0; i < data.length; i++) {
-            if (data[i].length > 0) {
-                result = true;
-            }
-        }
         while (column == data[row].length && row != data.length - 1) {
             row++;
             column = 0;
         }
-        return result;
+        return data[row].length > 0;
     }
 
     /**
