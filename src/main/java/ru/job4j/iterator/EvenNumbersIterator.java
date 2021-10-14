@@ -20,12 +20,15 @@ public class EvenNumbersIterator implements Iterator<Integer> {
     }
 
     /**
-     * Возвращает {@code true} если есть последующий элемент.
+     * Возвращает true если есть последующий элемент.
      *
-     * @return {@code true} если есть последующий элемент
+     * @return true если есть последующий элемент
      */
     @Override
     public boolean hasNext() {
+        if (index == data.length) {
+            return false;
+        }
         while (data[index] % 2 != 0 && index < data.length - 1) {
             index++;
         }
