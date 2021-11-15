@@ -36,8 +36,12 @@ public class Animal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Animal)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Animal)) {
+            return false;
+        }
         Animal animal = (Animal) o;
         return Objects.equals(name, animal.name) && Objects.equals(sound, animal.sound);
     }
@@ -49,9 +53,9 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal {" +
-                "name = '" + name + '\'' +
-                ", sound = '" + sound + '\'' +
-                '}';
+        return "Animal {"
+                + "name = '" + name + '\''
+                + ", sound = '" + sound + '\''
+                + '}';
     }
 }
