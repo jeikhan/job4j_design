@@ -31,11 +31,7 @@ public final class MemStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean replace(String id, T model) {
-        boolean result = mem.containsKey(id);
-        if (result) {
-            mem.put(id, model);
-        }
-        return result;
+        return mem.replace(id, mem.get(id), model);
     }
 
     /**
@@ -46,11 +42,7 @@ public final class MemStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean delete(String id) {
-        boolean result = mem.containsKey(id);
-        if (result) {
-            mem.remove(id);
-        }
-        return result;
+        return mem.remove(id, mem.get(id));
     }
 
     /**
