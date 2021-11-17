@@ -13,23 +13,6 @@ public final class MemStore<T extends Base> implements Store<T> {
     private Map<String, T> mem = new HashMap<>();
 
     /**
-     * Поиск позиции в коллекции.
-     *
-     * @param id id модели.
-     * @return указатель.
-     */
-    private int indexOf(String id) {
-        int result = -1;
-        for (int index = 0; index < mem.size(); index++) {
-            if (id.equals(mem.get(index).getId())) {
-                result = index;
-                break;
-            }
-        }
-        return result;
-    }
-
-    /**
      * Добавляет модель в хранилище.
      *
      * @param model модель.
@@ -42,14 +25,13 @@ public final class MemStore<T extends Base> implements Store<T> {
     /**
      * Заменяет модель по заданному id.
      *
-     * @param id id модели.
+     * @param id    id модели.
      * @param model модель.
      * @return true or false.
      */
     @Override
     public boolean replace(String id, T model) {
-        int index = indexOf(id);
-        boolean result = index != -1;
+        boolean result = mem.containsKey(id);
         if (result) {
             mem.put(id, model);
         }
@@ -64,12 +46,11 @@ public final class MemStore<T extends Base> implements Store<T> {
      */
     @Override
     public boolean delete(String id) {
-        int index = indexOf(id);
-        boolean rsl = index != -1;
-        if (rsl) {
-            mem.remove(index, mem.get(id));
+        boolean result = mem.containsKey(id);
+        if (result) {
+            mem.remove(id);
         }
-        return rsl;
+        return result;
     }
 
     /**
@@ -81,7 +62,6 @@ public final class MemStore<T extends Base> implements Store<T> {
      */
     @Override
     public T findById(String id) {
-        int index = indexOf(id);
-        return index != -1 ? mem.get(index) : null;
+        return mem.getOrDefault(id, null);
     }
 }
