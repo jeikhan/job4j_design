@@ -7,7 +7,7 @@ import java.util.*;
  * массива, аналог ArrayList.
  *
  * @author Evgenii Kapaev
- * @since
+ * @since 22.12.2021
  */
 public class SimpleArrayList<T> implements List<T> {
     private T[] container;
@@ -19,22 +19,29 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
-     * Добавляет значение в массив.
+     * Расширение массива в два раза.
+     */
+    private void resize() {
+        int newCapacity = size * 2;
+        container = Arrays.copyOf(container, newCapacity);
+    }
+
+    /**
+     * Добавление значения в массив.
      *
      * @param value значение.
      */
     @Override
     public void add(T value) {
         if (size == container.length) {
-            int newCapacity = size * 2;
-            container = Arrays.copyOf(container, newCapacity);
+            resize();
         }
         container[size++] = value;
         modCount++;
     }
 
     /**
-     * Задает новое значение в указанном индексе.
+     * Запись нового значения в указанный индекс.
      *
      * @param index    индекс старого значения в массиве.
      * @param newValue новое значение.
@@ -42,34 +49,32 @@ public class SimpleArrayList<T> implements List<T> {
      */
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         container[index] = newValue;
         return oldValue;
     }
 
     /**
-     * Удаляет значение в указанном индексе.
+     * Удаление значения в указанном индексе.
      *
      * @param index индекс удаляемого значения.
      * @return удаляемое значение.
      */
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T oldValue = container[index];
+        T oldValue = get(index);
         System.arraycopy(
                 container, index + 1,
                 container, index,
                 size - index - 1
         );
-        container[size--] = null;
+        container[--size] = null;
         modCount++;
         return oldValue;
     }
 
     /**
-     * Возвращает значение в указанном индексе.
+     * Считывание значения в указанном индексе.
      *
      * @param index индекс значения.
      * @return значение в указанном индексе.
@@ -81,7 +86,7 @@ public class SimpleArrayList<T> implements List<T> {
     }
 
     /**
-     * Возвращает размер массива.
+     * Считывание размера массива.
      *
      * @return размер массива.
      */
@@ -97,19 +102,22 @@ public class SimpleArrayList<T> implements List<T> {
             private int expectedModCount = modCount;
 
             /**
-             * Возвращает true если есть последующий элемент
+             * Проверка наличия последующего элемента
              * в массиве.
              *
              * @return true or false
              */
             @Override
             public boolean hasNext() {
+                if (expectedModCount != modCount) {
+                    throw new ConcurrentModificationException();
+                }
                 return cursor < size;
             }
 
             /**
-             * Метод возвращает последующий элемент массива.
-             * Иначе генерирует исключение.
+             * Считывание последующего элемента массива.
+             * Иначе генерируется исключение.
              *
              * @return последующий элемент массива
              */
@@ -117,9 +125,6 @@ public class SimpleArrayList<T> implements List<T> {
             public T next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
-                }
-                if (expectedModCount != modCount) {
-                    throw new ConcurrentModificationException();
                 }
                 return container[cursor++];
             }
