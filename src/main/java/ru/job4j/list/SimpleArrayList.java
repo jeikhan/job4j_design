@@ -22,7 +22,7 @@ public class SimpleArrayList<T> implements List<T> {
      * Расширение массива в два раза.
      */
     private void resize() {
-        int newCapacity = size * 2;
+        int newCapacity = container.length == 0 ? (size++) * 2 : size * 2;
         container = Arrays.copyOf(container, newCapacity);
     }
 
