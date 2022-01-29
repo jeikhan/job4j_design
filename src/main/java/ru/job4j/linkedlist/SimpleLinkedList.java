@@ -74,7 +74,7 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<>() {
-            private Node<E> node;
+            private Node<E> node = first;
             private int cursor = 0;
             private final int expectedModCount = modCount;
 
@@ -102,13 +102,10 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                if (cursor != 0) {
-                    node = node.next;
-                } else {
-                    node = first;
-                }
+                E element = node.item;
+                node = node.next;
                 cursor++;
-                return node.item;
+                return element;
             }
         };
     }
