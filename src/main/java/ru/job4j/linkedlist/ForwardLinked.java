@@ -31,6 +31,17 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     /**
+     * Вставка значения элемента в начало списка.
+     *
+     * @param value значение элемента.
+     */
+    public void addFirst(T value) {
+        Node<T> node = new Node<>(value, null);
+        node.next = head;
+        head = node;
+    }
+
+    /**
      * Удаление первого элемента из списка.
      *
      * @return удаляемый элемент.
