@@ -18,19 +18,20 @@ public class SimpleQueue<T> {
      * @return удаляемое значение.
      */
     public T poll() {
-        while (inCount > 0) {
-            out.push(in.pop());
-            inCount--;
-            outCount++;
-        }
-        T value = out.pop();
-        outCount--;
-        while (outCount > 0) {
-            in.push(out.pop());
+        T result = null;
+        if (outCount != 0) {
+            result = out.pop();
             outCount--;
-            inCount++;
+        } else {
+            while (inCount != 1) {
+                out.push(in.pop());
+                inCount--;
+                outCount++;
+            }
+            result = in.pop();
+            inCount--;
         }
-        return value;
+        return result;
     }
 
     /**
