@@ -1,5 +1,7 @@
 package ru.job4j.linkedlist;
 
+import java.util.NoSuchElementException;
+
 /**
  * Реализовать очередь на двух стеках.
  *
@@ -16,6 +18,9 @@ public class SimpleQueue<T> {
      * @return удаляемое значение.
      */
     public T poll() {
+        if (in.isEmpty() && out.isEmpty()) {
+            throw new NoSuchElementException();
+        }
         if (out.isEmpty()) {
             while (!in.isEmpty()) {
                 out.push(in.pop());
