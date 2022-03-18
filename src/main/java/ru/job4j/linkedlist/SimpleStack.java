@@ -10,6 +10,7 @@ package ru.job4j.linkedlist;
  */
 public class SimpleStack<T> {
     private final ForwardLinked<T> linked = new ForwardLinked<>();
+    private int size = 0;
 
     /**
      * Удаление значения элемента из стэка.
@@ -17,6 +18,7 @@ public class SimpleStack<T> {
      * @return удаленное значение.
      */
     public T pop() {
+        size--;
         return linked.deleteFirst();
     }
 
@@ -27,5 +29,15 @@ public class SimpleStack<T> {
      */
     public void push(T value) {
         linked.addFirst(value);
+        size++;
+    }
+
+    /**
+     * Проверка стека на наличие элементов.
+     *
+     * @return true or false.
+     */
+    public boolean isEmpty() {
+        return size == 0;
     }
 }

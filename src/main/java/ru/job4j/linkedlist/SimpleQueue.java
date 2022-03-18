@@ -9,8 +9,6 @@ package ru.job4j.linkedlist;
 public class SimpleQueue<T> {
     private final SimpleStack<T> in = new SimpleStack<>();
     private final SimpleStack<T> out = new SimpleStack<>();
-    int inCount = 0;
-    int outCount = 0;
 
     /**
      * Возвращение первого значения и удаление его из очереди.
@@ -18,20 +16,12 @@ public class SimpleQueue<T> {
      * @return удаляемое значение.
      */
     public T poll() {
-        T result = null;
-        if (outCount != 0) {
-            result = out.pop();
-            outCount--;
-        } else {
-            while (inCount != 1) {
+        if (out.isEmpty()) {
+            while (!in.isEmpty()) {
                 out.push(in.pop());
-                inCount--;
-                outCount++;
             }
-            result = in.pop();
-            inCount--;
         }
-        return result;
+        return out.pop();
     }
 
     /**
@@ -41,6 +31,5 @@ public class SimpleQueue<T> {
      */
     public void push(T value) {
         in.push(value);
-        inCount++;
     }
 }
