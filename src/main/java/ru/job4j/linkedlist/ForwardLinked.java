@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
  */
 public class ForwardLinked<T> implements Iterable<T> {
     private Node<T> head;
+    private int size;
 
     /**
      * Вставка значения элемента.
@@ -28,6 +29,7 @@ public class ForwardLinked<T> implements Iterable<T> {
             tail = tail.next;
         }
         tail.next = node;
+        size++;
     }
 
     /**
@@ -37,6 +39,7 @@ public class ForwardLinked<T> implements Iterable<T> {
      */
     public void addFirst(T value) {
         head = new Node<>(value, head);
+        size++;
     }
 
     /**
@@ -52,7 +55,38 @@ public class ForwardLinked<T> implements Iterable<T> {
         Node<T> next = head.next;
         head.next = null;
         head = next;
+        size--;
         return tmp;
+    }
+
+    /**
+     * Реверс списка.
+     *
+     * @return true or false.
+     */
+    public boolean revert() {
+        boolean result = false;
+        if (!isEmpty() && head.next != null) {
+            Node<T> current = head.next;
+            head.next = null;
+            while (current != null) {
+                Node<T> next = current.next;
+                current.next = head;
+                head = current;
+                current = next;
+            }
+            result = true;
+        }
+        return result;
+    }
+
+    /**
+     * Проверка списка на наличие элементов.
+     *
+     * @return true or false.
+     */
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     @Override
