@@ -118,9 +118,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
      */
     @Override
     public Iterator<K> iterator() {
-        return new Iterator<K>() {
+        return new Iterator<>() {
             private int cursor = 0;
-            private int expectedModCount = modCount;
+            private final int expectedModCount = modCount;
 
             /**
              * Проверка наличия последующего элемента
@@ -130,10 +130,18 @@ public class SimpleMap<K, V> implements Map<K, V> {
              */
             @Override
             public boolean hasNext() {
+                boolean result = false;
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return cursor < count;
+                for (int i = cursor; i < table.length; i++) {
+                    if (table[i] != null) {
+                        cursor = i;
+                        result = true;
+                        break;
+                    }
+                }
+                return result;
             }
 
             /**
@@ -158,7 +166,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
      * @param <K> ключ записи.
      * @param <V> значение записи.
      */
-    private class MapEntry<K, V> {
+    private static class MapEntry<K, V> {
         K key;
         V value;
 
