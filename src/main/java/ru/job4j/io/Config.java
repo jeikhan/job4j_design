@@ -31,10 +31,10 @@ public class Config {
                 if (line.isBlank() || line.startsWith("#")) {
                     continue;
                 }
-                if (line.startsWith("=") || !line.contains("=") || (line.indexOf("=") == line.length() - 1)) {
-                    throw new IllegalArgumentException();
-                }
                 int index = line.indexOf('=');
+                if (line.startsWith("=") || !line.contains("=") || (line.indexOf("=") == line.length() - 1)) {
+                    throw new IllegalArgumentException("Нарушение шаблона в строке: " + line);
+                }
                 values.put(line.substring(0, index), line.substring(index + 1));
             }
         } catch (IOException e) {
