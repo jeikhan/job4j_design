@@ -26,14 +26,15 @@ public class Config {
      * Считывание файла конфигурации.
      */
     public void load() {
+        String template = "Нарушение шаблона в строке: %s";
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             for (String line = read.readLine(); line != null; line = read.readLine()) {
                 if (line.isBlank() || line.startsWith("#")) {
                     continue;
                 }
                 int index = line.indexOf('=');
-                if (line.startsWith("=") || !line.contains("=") || (line.indexOf("=") == line.length() - 1)) {
-                    throw new IllegalArgumentException("Нарушение шаблона в строке: " + line);
+                if (line.startsWith("=") || !line.contains("=") || (index == line.length() - 1)) {
+                    throw new IllegalArgumentException(String.format(template, line));
                 }
                 values.put(line.substring(0, index), line.substring(index + 1));
             }
