@@ -31,7 +31,7 @@ public class Config {
                 if (line.isBlank() || line.startsWith("#")) {
                     continue;
                 }
-                if (line.startsWith("=") || !line.contains("=") || line.endsWith("=")) {
+                if (line.startsWith("=") || !line.contains("=") || (line.indexOf("=") == line.length() - 1)) {
                     throw new IllegalArgumentException();
                 }
                 int index = line.indexOf('=');
