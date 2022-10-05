@@ -27,10 +27,16 @@ public class Config {
      */
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
-                    .filter(e -> !e.contains("#") && e.contains("="))
-                    .map(e -> e.split("="))
-                    .forEach(e -> values.put(e[0], e[1]));
+            for (String line = read.readLine(); line != null; line = read.readLine()) {
+                if (line.isBlank() || line.startsWith("#")) {
+                    continue;
+                }
+                if (line.startsWith("=") || !line.contains("=") || line.endsWith("=")) {
+                    throw new IllegalArgumentException();
+                }
+                int index = line.indexOf('=');
+                values.put(line.substring(0, index), line.substring(index + 1));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
