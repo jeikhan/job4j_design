@@ -1,27 +1,27 @@
 package ru.job4j.linkedlist;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ForwardLinkedTest {
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenDeleteFirst() {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
-        linked.add(1);
-        linked.deleteFirst();
-        linked.iterator().next();
+        assertThrows(NoSuchElementException.class, () -> {
+            linked.add(1);
+            linked.deleteFirst();
+            linked.iterator().next();
+        });
     }
 
-    @Test(expected = NoSuchElementException.class)
+    @Test
     public void whenDeleteEmptyLinked() {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
-        linked.deleteFirst();
+        assertThrows(NoSuchElementException.class, linked::deleteFirst);
     }
 
     @Test
@@ -29,9 +29,9 @@ public class ForwardLinkedTest {
         ForwardLinked<Integer> linked = new ForwardLinked<>();
         linked.add(1);
         linked.add(2);
-        assertThat(linked.deleteFirst(), is(1));
+        assertEquals(1, linked.deleteFirst());
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(2));
+        assertEquals(2, it.next());
     }
 
     @Test
@@ -40,8 +40,8 @@ public class ForwardLinkedTest {
         linked.add(1);
         linked.add(2);
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(1));
-        assertThat(it.next(), is(2));
+        assertEquals(1, it.next());
+        assertEquals(2, it.next());
     }
 
     @Test
@@ -51,8 +51,8 @@ public class ForwardLinkedTest {
         linked.add(2);
         linked.revert();
         Iterator<Integer> it = linked.iterator();
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(1));
+        assertEquals(2, it.next());
+        assertEquals(1, it.next());
     }
 
     @Test

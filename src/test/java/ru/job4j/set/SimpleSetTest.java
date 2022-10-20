@@ -1,13 +1,10 @@
 package ru.job4j.set;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleSetTest {
     @Test
@@ -40,7 +37,7 @@ public class SimpleSetTest {
         set.add(2);
         set.add(1);
         Iterator<Integer> it = set.iterator();
-        assertThat(it.next(), is(2));
-        assertThat(it.next(), is(1));
+        assertEquals(it.next(), 2);
+        assertEquals(it.next(), 1);
     }
 }
