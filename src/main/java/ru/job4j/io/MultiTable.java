@@ -13,13 +13,13 @@ public class MultiTable {
     public static void main(String[] args) {
         try (FileOutputStream out = new FileOutputStream("./data/MultipleTable.txt")) {
             for (int i = 1; i < 10; i++) {
-                String row = String.valueOf(i);
+                StringBuilder row = new StringBuilder(String.valueOf(i));
                 for (int j = 2; j < 10; j++) {
                     int rsl = i * j;
-                    row += "\t" + rsl;
+                    row.append("\t").append(rsl);
                 }
-                row += System.lineSeparator();
-                out.write(row.getBytes());
+                row.append(System.lineSeparator());
+                out.write(row.toString().getBytes());
             }
         } catch (Exception e) {
             e.printStackTrace();
