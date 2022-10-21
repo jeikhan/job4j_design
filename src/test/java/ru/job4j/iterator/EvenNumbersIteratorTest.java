@@ -1,5 +1,6 @@
 package ru.job4j.iterator;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
@@ -10,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EvenNumbersIteratorTest {
     private Iterator<Integer> it;
 
+    @BeforeEach
     public void setUp() {
         it = new EvenNumbersIterator(new int[]{1, 2, 3, 4, 5, 6, 7});
     }

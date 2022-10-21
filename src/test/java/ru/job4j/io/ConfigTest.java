@@ -26,6 +26,6 @@ public class ConfigTest {
     public void whenNotKeyOrValue() {
         String path = "./data/pair_with_no_key_or_value.properties";
         Config config = new Config(path);
-        Exception exception = assertThrows(IllegalAccessException.class, config::load);
+        assertThrows(IllegalArgumentException.class, config::load);
     }
 }

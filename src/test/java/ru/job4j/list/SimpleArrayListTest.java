@@ -1,5 +1,6 @@
 package ru.job4j.list;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ConcurrentModificationException;
@@ -12,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SimpleArrayListTest {
     List<Integer> list;
 
+    @BeforeEach
     public void initData() {
         list = new SimpleArrayList<>(5);
         list.add(1);

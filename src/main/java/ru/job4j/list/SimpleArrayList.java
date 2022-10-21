@@ -98,7 +98,7 @@ public class SimpleArrayList<T> implements List<T> {
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             private int cursor = 0;
-            private int expectedModCount = modCount;
+            private final int expectedModCount = modCount;
 
             /**
              * Проверка наличия последующего элемента
