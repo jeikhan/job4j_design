@@ -1,7 +1,7 @@
 package ru.job4j;
 
 /**
- * класс Trigger
+ * класс Trigger.
  */
 public class Trigger {
     public int someLogic() {
