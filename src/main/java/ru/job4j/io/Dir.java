@@ -5,13 +5,17 @@ import java.io.File;
 /**
  * Задача. Создать программу для вывода всех файлов
  * в каталоге по шаблону: имя файла/каталога (размер).
+ * UPD: добавить валидацию параметров запуска.
  *
  * @author Evgeniy Kapaev
  * @since 10.11.2022
  */
 public class Dir {
     public static void main(String[] args) {
-        File file = new File("d://projects");
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        }
+        File file = new File(args[0]);
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
