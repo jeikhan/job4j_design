@@ -16,15 +16,28 @@ import java.util.function.Predicate;
  * @since 13.11.2022
  */
 public class Search {
+
     /**
      * Запуск программы.
      */
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        Search search = new Search();
+        if (search.validate(args)) {
+            throw new IllegalArgumentException("Укажите root-папку и расширение файла!");
         }
         Path start = Paths.get(args[0]);
-        search(start, path -> path.toFile().getName().endsWith(".js")).forEach(System.out::println);
+        search(start, path -> path.toFile().getName().endsWith(args[1])).forEach(System.out::println);
+    }
+
+    /**
+     * Валидация параметров запуска программы.
+     *
+     * @param arguments параметры запуска.
+     * @return true если количество удовлетворяет условиям поиска,
+     * false если параметров недостаточно.
+     */
+    public boolean validate(String... arguments) {
+        return arguments.length != 2;
     }
 
     /**
