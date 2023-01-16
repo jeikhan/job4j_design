@@ -22,7 +22,7 @@ public class Search {
      */
     public static void main(String[] args) throws IOException {
         Search search = new Search();
-        if (search.validate(args)) {
+        if (!search.validate(args)) {
             throw new IllegalArgumentException("Укажите root-папку и расширение файла!");
         }
         Path start = Paths.get(args[0]);
@@ -32,12 +32,16 @@ public class Search {
     /**
      * Валидация параметров запуска программы.
      *
-     * @param arguments параметры запуска.
+     * @param args параметры запуска.
      * @return true если количество удовлетворяет условиям поиска,
      * false если параметров недостаточно.
      */
-    public boolean validate(String... arguments) {
-        return arguments.length != 2;
+    public boolean validate(String... args) {
+        return args.length == 2
+                && Files.exists(Path.of(args[0]))
+                && Files.isDirectory(Path.of(args[0]))
+                && args[1].startsWith(".")
+                && args[1].length() > 1;
     }
 
     /**
