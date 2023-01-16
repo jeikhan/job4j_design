@@ -22,8 +22,10 @@ public class Search {
      */
     public static void main(String[] args) throws IOException {
         Search search = new Search();
-        if (!search.validate(args)) {
-            throw new IllegalArgumentException("Укажите root-папку и расширение файла!");
+        if (args.length == 2) {
+            search.validate(args);
+        } else {
+            throw new IllegalArgumentException("Передано недостаточное количество аргументов: укажите директорию и расширение искомого файла(-ов).");
         }
         Path start = Paths.get(args[0]);
         search(start, path -> path.toFile().getName().endsWith(args[1])).forEach(System.out::println);
@@ -33,15 +35,17 @@ public class Search {
      * Валидация параметров запуска программы.
      *
      * @param args параметры запуска.
-     * @return true если количество удовлетворяет условиям поиска,
-     * false если параметров недостаточно.
      */
-    public boolean validate(String... args) {
-        return args.length == 2
-                && Files.exists(Path.of(args[0]))
-                && Files.isDirectory(Path.of(args[0]))
-                && args[1].startsWith(".")
-                && args[1].length() > 1;
+    public void validate(String... args) {
+        if (!Files.exists(Path.of(args[0]))) {
+            throw new IllegalArgumentException("Указанный путь не существует в системе.");
+        } else if (!Files.isDirectory(Path.of(args[0]))) {
+            throw new IllegalArgumentException("Укажите название директории поиска.");
+        } else if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Расширение должно начинаться с \".\" ");
+        } else if (!(args[1].length() > 1)) {
+            throw new IllegalArgumentException("Расширение не может содержать только \".\" ");
+        }
     }
 
     /**
