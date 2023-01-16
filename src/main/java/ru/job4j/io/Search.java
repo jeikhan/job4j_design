@@ -35,14 +35,18 @@ public class Search {
     public void validate(String... args) {
         if (!(args.length == 2)) {
             throw new IllegalArgumentException("Передано недостаточное количество аргументов: укажите директорию и расширение искомого файла(-ов).");
-        } else if (!Files.exists(Path.of(args[0]))) {
+        }
+        if (!Files.exists(Path.of(args[0]))) {
             throw new IllegalArgumentException("Указанный путь не существует в системе.");
-        } else if (!Files.isDirectory(Path.of(args[0]))) {
+        }
+        if (!Files.isDirectory(Path.of(args[0]))) {
             throw new IllegalArgumentException("Укажите название директории поиска.");
-        } else if (!args[1].startsWith(".")) {
-            throw new IllegalArgumentException("Расширение должно начинаться с точки(.) ");
-        } else if (!(args[1].length() > 1)) {
-            throw new IllegalArgumentException("Расширение не может содержать только точку(.) ");
+        }
+        if (!args[1].startsWith(".")) {
+            throw new IllegalArgumentException("Расширение должно начинаться с точки(.)");
+        }
+        if (!(args[1].length() > 1)) {
+            throw new IllegalArgumentException("Расширение не может содержать только точку(.)");
         }
     }
 
