@@ -35,4 +35,28 @@ class ArgsNameTest {
         assertThatThrownBy(() -> ArgsName.of(new String[]{}))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    void whenNotKey() {
+        assertThatThrownBy(() -> ArgsName.of(new String[]{"-=512", "-encoding=UTF-8"}))
+                .isInstanceOf(IllegalArgumentException.class).hasMessage("В аргументе отсутствует ключ");
+    }
+
+    @Test
+    void whenNotValue() {
+        assertThatThrownBy(() -> ArgsName.of(new String[]{"-Xmx=", "-encoding=UTF-8"}))
+                .isInstanceOf(IllegalArgumentException.class).hasMessage("В аргументе отсутствует значение");
+    }
+
+    @Test
+    void whenWrongValue() {
+        assertThatThrownBy(() -> ArgsName.of(new String[]{"-Xmx:512", "-encoding=UTF-8"}))
+                .isInstanceOf(IllegalArgumentException.class).hasMessage("Неверно указан аргумент значения");
+    }
+
+    @Test
+    void whenWrongKey() {
+        assertThatThrownBy(() -> ArgsName.of(new String[]{"Xmx=512", "-encoding=UTF-8"}))
+                .isInstanceOf(IllegalArgumentException.class).hasMessage("Неверно указан аргумент ключа");
+    }
 }
