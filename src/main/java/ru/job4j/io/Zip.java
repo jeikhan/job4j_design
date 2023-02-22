@@ -86,7 +86,7 @@ public class Zip {
     }
 
     public static void main(String[] args) throws IOException {
-        if (!(args.length == 3)) {
+        if (args.length != 3) {
             throw new IllegalArgumentException("Передано недостаточное количество аргументов: укажите архивируемую директорию, расширение игнорируемого файла, имя и расширение zip-архива");
         }
         Zip zip = new Zip();
