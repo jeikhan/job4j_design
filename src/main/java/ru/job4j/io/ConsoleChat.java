@@ -59,11 +59,11 @@ public class ConsoleChat {
             System.out.print("Введите фразу: ");
             userInput = input.nextLine();
             log.add(userInput);
-            if (userInput.equals(OUT)) {
+            if (OUT.equals(userInput)) {
                 inputFlag = false;
                 botFlag = false;
             }
-            if (userInput.equals(STOP)) {
+            if (STOP.equals(userInput)) {
                 System.out.println("(-_-): я заснул... z z z...");
                 botFlag = false;
             }
@@ -72,7 +72,7 @@ public class ConsoleChat {
                 System.out.println("(0_0): " + answerBot);
                 log.add(answerBot);
             }
-            if (userInput.equals(CONTINUE)) {
+            if (CONTINUE.equals(userInput)) {
                 System.out.println("(0_0): я проснулся!");
                 botFlag = true;
             }
